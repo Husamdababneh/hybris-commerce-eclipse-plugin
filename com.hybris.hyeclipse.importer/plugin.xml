@@ -81,6 +81,17 @@
          	</with>
          </enabledWhen>
       </handler>
+      
+      <handler commandId="com.hybris.yps.hyeclipse.ConvertExtensionToTemplateCommand" 
+            class="com.hybris.yps.hyeclipse.handlers.ConvertExtensionToTemplateHandler">
+         <enabledWhen>
+         	<with variable="com.hybris.hyeclipse.properties.platformHome">
+         		<equals value="ENABLED">
+                </equals>
+         	</with>
+         </enabledWhen>
+      </handler>
+      
       <handler commandId="com.hybris.yps.hyeclipse.ExtensionCleanBuildCommand" 
             class="com.hybris.yps.hyeclipse.handlers.ExtensionCleanBuildHandler">
          <enabledWhen>
@@ -257,6 +268,11 @@
           <command
                commandId="com.hybris.yps.hyeclipse.ExtensionCleanBuildCommand"
                label="clean all"
+               style="push" icon="icon/hybris.ico">
+         </command>
+         <command
+               commandId="com.hybris.yps.hyeclipse.ConvertExtensionToTemplateCommand"
+               label="Convert Extension to Template"
                style="push" icon="icon/hybris.ico">
          </command>
          </menu>
