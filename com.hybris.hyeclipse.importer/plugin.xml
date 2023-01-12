@@ -82,6 +82,13 @@
          </enabledWhen>
       </handler>
       
+      <handler commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinition" 
+            class="com.hybris.yps.hyeclipse.handlers.CreateSpringBeanDefinitionHandler">
+<!--         <enabledWhen>-->
+         
+<!--         </enabledWhen>-->
+      </handler>
+      
       <handler commandId="com.hybris.yps.hyeclipse.ConvertExtensionToTemplateCommand" 
             class="com.hybris.yps.hyeclipse.handlers.ConvertExtensionToTemplateHandler">
          <enabledWhen>
@@ -230,7 +237,6 @@
                   commandId="com.hybris.yps.hyeclipse.handlers.help.OpenCXWorksHandler"
                   label="SAP CX Works"
                   style="push">
-               sh">
             </command>
             <command
                   commandId="com.hybris.yps.hyeclipse.handlers.help.OpenExpertsForumHandler"
@@ -296,6 +302,15 @@
              label="SAP Commerce Projects">
        </projectConfigurator>
     </extension>
+    
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution 
+			id="com.hybris.hyeclipse.menu.contribution" 
+			locationURI="popup:#CompilationUnitEditorContext?after=additions">
+				<command commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinition" label="Copy Spring Bean Definition" style="push" icon="icon/hybris.ico" />
+		</menuContribution>
+	</extension>
 
 
 </plugin>

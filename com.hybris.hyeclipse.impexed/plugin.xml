@@ -12,7 +12,6 @@
             class="com.hybris.impexformatter.editors.ImpexPageEditor"
             id="com.hybris.impexformatter.editors.ImpexPageEditor">
         </editor>
-       >
 	</extension>
 	
 	<extension
