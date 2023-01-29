@@ -88,6 +88,13 @@
          
 <!--         </enabledWhen>-->
       </handler>
+
+      <handler commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinitionWizard" 
+            class="com.hybris.yps.hyeclipse.handlers.CreateSpringBeanDefinitionWizardHandler">
+<!--         <enabledWhen>-->
+         
+<!--         </enabledWhen>-->
+      </handler>
       
       <handler commandId="com.hybris.yps.hyeclipse.ConvertExtensionToTemplateCommand" 
             class="com.hybris.yps.hyeclipse.handlers.ConvertExtensionToTemplateHandler">
@@ -305,10 +312,9 @@
     
 
 	<extension point="org.eclipse.ui.menus">
-		<menuContribution 
-			id="com.hybris.hyeclipse.menu.contribution" 
-			locationURI="popup:#CompilationUnitEditorContext?after=additions">
-				<command commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinition" label="Copy Spring Bean Definition" style="push" icon="icon/hybris.ico" />
+		<menuContribution  id="com.hybris.hyeclipse.menu.contribution" locationURI="popup:#CompilationUnitEditorContext?after=additions">
+				<command commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinition" label="Copy Spring Bean Definition"    style="push" icon="icon/hybris.ico" />
+				<command commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinitionWizard" label="Copy Spring Bean Definition(W)" style="push" icon="icon/hybris.ico" />
 		</menuContribution>
 	</extension>
 
