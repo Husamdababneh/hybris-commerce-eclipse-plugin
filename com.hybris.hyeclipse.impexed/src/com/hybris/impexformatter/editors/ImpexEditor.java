@@ -29,16 +29,12 @@ public class ImpexEditor extends TextEditor {
 		setSourceViewerConfiguration(new ImpexSourceViewerConfig(getPreferenceStore()));
 		setDocumentProvider(new DocumentProvider());
 	}
-	
-	/*@Override
-	protected IVerticalRuler createVerticalRuler() {
-		int rulerWidth = 10;
-		CompositeRuler ruler = new CompositeRuler();
-		ruler.addDecorator(0, new AnnotationRulerColumn(rulerWidth));
-		if (isLineNumberRulerVisible()) {
-			ruler.addDecorator(1, createLineNumberRulerColumn());
-		}
-		return ruler;
-	}*/
-	
+
+	/*
+	 * @Override protected IVerticalRuler createVerticalRuler() { int rulerWidth =
+	 * 10; CompositeRuler ruler = new CompositeRuler(); ruler.addDecorator(0, new
+	 * AnnotationRulerColumn(rulerWidth)); if (isLineNumberRulerVisible()) {
+	 * ruler.addDecorator(1, createLineNumberRulerColumn()); } return ruler; }
+	 */
+
 }
