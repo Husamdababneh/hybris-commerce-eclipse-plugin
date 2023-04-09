@@ -62,7 +62,7 @@ public interface BeansPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "file:/Users/i316750/development/hybris/tata/TSERes1_12Dec2016/hybris/hybris/bin/custom/ttweb/ttwebfacades/resources/beans.xsd";
+	String eNS_URI = "file:/home/user1/Development/rnd/beans.xsd";
 
 	/**
 	 * The package namespace name.

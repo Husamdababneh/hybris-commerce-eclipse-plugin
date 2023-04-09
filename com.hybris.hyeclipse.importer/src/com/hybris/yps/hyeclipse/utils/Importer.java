@@ -208,7 +208,7 @@ public class Importer {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
 		if (!project.exists()) {
 			try {
-				project.create(null, progress.newChild(3));				
+				project.create(null, progress.newChild(3));
 			} catch (ResourceException e) {
 				if (e.getStatus().getCode() == IResourceStatus.RESOURCE_EXISTS) {
 					project.open(monitor);
@@ -220,7 +220,7 @@ public class Importer {
 		final IJavaProject javaProject = JavaCore.create(project);
 		javaProject.save(monitor, DEBUG);
 		if (JavaProject.hasJavaNature(project)) {
-			javaProject.open(monitor);			
+			javaProject.open(monitor);
 		}
 		fixProjectCompilerSettings(project, javaProject, version);
 		project.open(progress.newChild(3));
@@ -289,14 +289,14 @@ public class Importer {
 	}
 
 	private void addHybrisNature(final IProject project, final IProgressMonitor monitor) throws CoreException {
-		final IProjectDescription description = project.getDescription();
-
-		final Set<String> natSet = new HashSet<>(Arrays.asList(description.getNatureIds()));
-		natSet.add(HYBRIS_NATURE_ID);
-		natSet.add(JavaCore.NATURE_ID);
-		final String[] newNatures = natSet.toArray(new String[natSet.size()]);
-		description.setNatureIds(newNatures);
-		project.setDescription(description, monitor);
+//		final IProjectDescription description = project.getDescription();
+//
+//		final Set<String> natSet = new HashSet<>(Arrays.asList(description.getNatureIds()));
+//		natSet.add(HYBRIS_NATURE_ID);
+//		natSet.add(JavaCore.NATURE_ID);
+//		final String[] newNatures = natSet.toArray(new String[natSet.size()]);
+//		description.setNatureIds(newNatures);
+//		project.setDescription(description, monitor);
 	}
 
 	private void fixBuilders(final IProgressMonitor monitor) throws CoreException {

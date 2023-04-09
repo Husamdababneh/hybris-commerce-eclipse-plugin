@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="beans" nsURI="file:/Users/i316750/development/hybris/tata/TSERes1_12Dec2016/hybris/hybris/bin/custom/ttweb/ttwebfacades/resources/beans.xsd"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="beans" nsURI="file:/home/user1/Development/rnd/beans.xsd"
     nsPrefix="beans">
   <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
     <details key="qualified" value="false"/>
