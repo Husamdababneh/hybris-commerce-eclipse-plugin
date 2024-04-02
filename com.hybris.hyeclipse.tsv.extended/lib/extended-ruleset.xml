@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ruleset>
+
+	<!-- XPATH RULES -->
+	 <rule type="XPATH"
+          id="DeploymentTableMustExistForItemExtendingGenericItem"
+          description="A deployment table must be defined for all Items extending GenericItem"
+          priority="H"
+          selectionQuery="//itemtype[@extends='GenericItem' or not(@extends)]"
+          testQuery="count(./deployment) > 0 or (./@autocreate='false' and ./@generate='false')"
+          nameQuery="./@code" />
+    <rule type="XPATH"
+          id="DeploymentTypeCodeMustBeGreaterThanTenThousand"
+          description="Type codes between 1 and 10000 are reserved for hybris"
+          priority="M"
+          selectionQuery="//itemtype/deployment"
+          testQuery="./@typecode > 10000"
+          nameQuery="../@code" />
+    <rule type="XPATH" id="NoDeploymentTableShouldExistForItemIfNotExtendingGenericItem"
+          description="A deployment table must not be defined for any Items extending any item other than GenericItem"
+          priority="H"
+          selectionQuery="//itemtype[@extends!='GenericItem']"
+          testQuery="count(./deployment) = 0"
+          nameQuery="./@code" />
+    <rule type="XPATH" id="JaloClassIsNotAllowedWhenAddingFieldsToExistingClass"
+          description="The jaloclass attribute is not allowed when autocreate='false' and generate='false'"
+          priority="H"
+          selectionQuery="//itemtype[@autocreate='false' and @generate='false']"
+          testQuery="self::node()[not (@jaloclass)]"
+          nameQuery="./@code" />
+    <rule type="XPATH"
+		id="DeploymentTableMustExistForManyToManyRelation"
+		description="A deployment table must be defined for all many-to-many relations"
+		priority="H"
+		selectionQuery="//relation[sourceElement[@cardinality='many']][targetElement[@cardinality='many']]"
+		testQuery="count(./deployment) > 0"
+		nameQuery="./@code" />
+	<rule type="XPATH"
+		id="MandatoryFieldMustHaveInitialValue"
+		description="Mandatory fields (where optional='false') must either have initial set to 'true' or a default value defined"
+		priority="M"
+		selectionQuery="//itemtype/attributes/attribute[modifiers[@optional='false']]"
+		testQuery="./modifiers/@initial = 'true' or count(./defaultvalue) > 0"
+		nameQuery="../../@code|./@qualifier" />
+    <rule type="XPATH"
+          id="ImmutableFieldMustHaveInitialValue"
+          description="Immutable fields (where write='false') must have initial set to 'true' or a default value defined"
+          priority="M"
+          selectionQuery="//itemtype/attributes/attribute[modifiers[@write='false']]"
+          testQuery="./modifiers/@initial = 'true' or count(./defaultvalue) > 0"
+          nameQuery="../../@code|./@qualifier" />
+    <rule type="XPATH"
+          id="BooleanFieldCannotBeOptional"
+          description="Fields of type java.lang.Boolean must be mandatory (optional='false') or a default value defined"
+          priority="M"
+          selectionQuery="//itemtype/attributes/attribute[@type='java.lang.Boolean']"
+          testQuery="./modifiers/@optional = 'false' or count(./defaultvalue) > 0"
+          nameQuery="../../@code|./@qualifier" />
+    <rule type="XPATH"
+          id="JaloPersistanceTypeIsDeprecated"
+          description="Attributes should not have a persistence type of 'jalo': use 'dynamic' instead."
+          priority="M"
+          selectionQuery="//itemtype/attributes/attribute"
+          testQuery="count(./persistence) = 0 or ./persistence/@type != 'jalo'"
+          nameQuery="../../@code|./@qualifier" />
+    <rule type="XPATH"
+          id="CmpPersistanceTypeIsDeprecated"
+          description="Attributes should not have a persistence type of 'cmp'."
+          priority="M"
+          selectionQuery="//itemtype/attributes/attribute"
+          testQuery="count(./persistence) = 0 or ./persistence/@type != 'cmp'"
+          nameQuery="../../@code|./@qualifier" />
+    <rule type="XPATH"
+		id="TypeNameMustStartWithUppercaseLetter"
+		description="Type Names (including EnumTypes and Relations) must start with an uppercase letter"
+		priority="M"
+		selectionQuery="//itemtype|//enumtype|//relation"
+		testQuery="substring(./@code, 1, 1) = translate(substring(./@code, 1, 1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"
+		nameQuery="./@code" />
+	<rule type="XPATH"
+		id="TypeNameMustNotStartWithGenerated"
+		description="Type Names (including EnumTypes and Relations) must not start with the string Generated"
+		priority="M"
+		selectionQuery="//itemtype|//enumtype|//relation"
+		testQuery="not(starts-with(translate(./@code, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 'GENERATED'))"
+		nameQuery="./@code" />
+	<rule type="XPATH"
+		id="FieldNameMustStartWithLowercaseLetter"
+		description="Item attribute names must start with a lowercase letter"
+		priority="M"
+		selectionQuery="//itemtype/attributes/attribute"
+		testQuery="substring(./@qualifier, 1, 1) = translate(substring(./@qualifier, 1, 1), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"
+		nameQuery="../../@code|./@qualifier" />
+	<rule type="XPATH"
+		id="RelationshipQualifierNameMustStartWithLowercaseLetter"
+		description="Relationship qualifier names must start with a lowercase letter"
+		priority="M"
+		selectionQuery="//relation/sourceElement|//relation/targetElement"
+		testQuery="substring(./@qualifier, 1, 1) = translate(substring(./@qualifier, 1, 1), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"
+		nameQuery="../@code|./@qualifier" />
+	<rule type="XPATH"
+		id="OrderingOfRelationShouldBeAvoided"
+		description="Any side of a relation that has cardinality='many' should not have ordered='true' unless absolutely necessary"
+		priority="L"
+		selectionQuery="//relation/sourceElement[@cardinality='many']|//relation/targetElement[@cardinality='many']"
+		testQuery="./@ordered = 'false' or count(./@ordered) = 0"
+		nameQuery="../@code|./@qualifier" />
+    <rule type="XPATH"
+          id="ListsInRelationShouldBeAvoided"
+          description="Any side of a relation that has cardinality='many' should have collectiontype='set' unless absolutely necessary"
+          priority="L"
+          selectionQuery="//relation/sourceElement[@cardinality='many']|//relation/targetElement[@cardinality='many']"
+          testQuery="./@collectiontype = 'set' or count(./@collectiontype) = 0"
+          nameQuery="../@code|./@qualifier" />
+
+    <rule type="XPATH"
+          id="UseOfUnoptimizedAttributesIsNotRecommended"
+          description="Use of unoptimized attributes is not recommended"
+          priority="L"
+          selectionQuery="//itemtype/attributes/attribute[modifiers[@dontOptimize = 'true']]"
+          testQuery="1 = 0 "
+          nameQuery="../../@code|./@qualifier" />
+
+
+	<!-- TYPE SYSTEM RULES (load the hybris type system into memory -->
+
+    <rule type="TYPE_SYSTEM"
+          id="NoDatabaseIndexesForUniqueAttributesOfType"
+          description="No database indexes defined for unique attributes of type"
+          priority="M"
+          typeSystemType="item"
+          >
+          <evalScript>
+          <![CDATA[
+          // params
+          // type (YType)
+          // indexes (list of YIndex)
+          // uniqueAttributes (list of YAttributeDescriptor)
+          // typeSystem (YTypeSystem)
+          
+          // iterate over the indexes and look for one that matches all the unique qualifiers
+          for (index in indexes)
+          {
+          	if (index.getIndexedAttributes().size() == uniqueAttributes.size())
+          	{
+          		for (attr in uniqueAttributes)
+          		{
+          			// if this index doesn't contain this attribute then we return false for a match
+          			if (!index.getIndexedAttributes().contains(attr))
+          			{
+          				break;
+          			}
+          		}
+          		// if we reach here we have a match
+          		return true
+          		 
+          	}
+          }
+          return false
+          ]]>
+          </evalScript>
+     </rule>
+
+    <rule type="TYPE_SYSTEM"
+          id="CatalogVersionAttributeShouldBeMarkedUniqueForCatalogAwareTypes"
+          description="CatalogVersion attribute should be marked unique for Catalog aware types"
+          priority="H"
+          typeSystemType="item"
+            >
+        <evalScript>
+            <![CDATA[
+            // params
+            // type (YType)
+            // indexes (list of YIndex)
+            // uniqueAttributes (list of YAttributeDescriptor)
+            // typeSystem (YTypeSystem)
+
+            String catalogVerAttr = type.getCustomProps().get('catalogVersionAttributeQualifier')
+            if (catalogVerAttr != null) {
+                def attr = type.getAttribute(catalogVerAttr)
+
+                if (attr != null) {
+                    return attr.isUniqueModifier()
+                }
+            }
+            return true
+            ]]>
+        </evalScript>
+    </rule>
+
+    <rule type="TYPE_SYSTEM"
+          id="UniqueAttributesDontMatchCatalogUniqueAttributeKey"
+          description="UniqueAttributes don't match the catalog unique attribute key (uniqueKeyAttributeQualifier)"
+          priority="H"
+          typeSystemType="item"
+            >
+        <evalScript>
+            <![CDATA[
+            // params
+            // type (YType)
+            // indexes (list of YIndex)
+            // uniqueAttributes (list of YAttributeDescriptor)
+            // typeSystem (YTypeSystem)
+
+
+            def uniqueAttributes = type.getCustomProps().get('uniqueKeyAttributeQualifier')
+            if (uniqueAttributes != null) {
+                for (attr in type.getAttributes()) {
+
+                    if (attr.isUniqueModifier() && uniqueAttributes == attr) {
+                        return false
+                    }
+                    def values = uniqueAttributes.split(',')
+                    for (value in values) {
+                        if (attr.isUniqueModifier() && value == attr) {
+                            return false
+                        }
+                    }
+
+                }
+            }
+            return true
+            ]]>
+        </evalScript>
+    </rule>
+
+    <rule type="TYPE_SYSTEM"
+          id="One2ManyRelationWhereTheOneSideIsCatalogAwareTypeAndTheManySideIsNot"
+          description="One 2 many relation where the one side is a Catalog aware type and the many side is not"
+          priority="H"
+          typeSystemType="relation"
+            >
+        <evalScript>
+            <![CDATA[
+            // params
+            // type (YType)
+            // indexes (list of YIndex)
+            // uniqueAttributes (list of YAttributeDescriptor)
+            // typeSystem (YTypeSystem)
+
+            if (type.isOneToMany()) {
+
+                String catalogVerAttrSource = type.getSourceEnd().getType().getCustomProps().get('catalogVersionAttributeQualifier')
+                String catalogVerAttrTarget = type.getTargetEnd().getType().getCustomProps().get('catalogVersionAttributeQualifier')
+
+                    if (catalogVerAttrSource != null && catalogVerAttrTarget == null && !type.getTargetEnd().getMappedAttribute().isPartOf()) {
+                        return false
+                    }
+
+
+            }
+            return true
+            ]]>
+        </evalScript>
+    </rule>
+
+    <rule type="TYPE_SYSTEM"
+          id="NoUniqueAttributesDefinedForType"
+          description="No unique attributes defined for type"
+          priority="M"
+          typeSystemType="item"
+            >
+        <evalScript>
+            <![CDATA[
+            // params
+            // type (YType)
+            // indexes (list of YIndex)
+            // uniqueAttributes (list of YAttributeDescriptor)
+            // typeSystem (YTypeSystem)
+
+            for (attr in type.getAttributes()) {
+
+                if (attr.isUniqueModifier())
+                {
+                    if(uniqueAttributes.contains(attr)){
+                        return true
+                    }
+                }
+            }
+            return false
+            ]]>
+        </evalScript>
+    </rule>
+
+</ruleset>

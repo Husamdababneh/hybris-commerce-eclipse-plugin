@@ -39,6 +39,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.TypeParameter;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.eclipse.jdt.internal.ui.browsing.LogicalPackage;
+import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.jdt.internal.ui.viewsupport.BindingLabelProvider;
 import org.eclipse.jdt.ui.JavaElementLabels;
 import org.eclipse.jdt.ui.JavaUI;
@@ -70,14 +71,18 @@ public class CreateSpringBeanDefinitionHandler extends AbstractHandler {
 //		
 
 		Shell activeShell = HandlerUtil.getActiveShell(event);
-		ITextEditor editor = (ITextEditor) HandlerUtil.getActiveEditor(event);
-		ITextSelection sel = (ITextSelection) editor.getSelectionProvider().getSelection();
+		ITextEditor iTextEditor = (ITextEditor) HandlerUtil.getActiveEditor(event);
+		ITextSelection sel = (ITextSelection) iTextEditor.getSelectionProvider().getSelection();
 
-		if (!handerlDirtyEditor(editor, activeShell)) {
+		if (!handerlDirtyEditor(iTextEditor, activeShell)) {
 			return null;
 		}
 
-		String qualifiedName = MiscUtils.getQualifiedName(editor);
+//		if (iTextEditor instanceof CompilationUnitEditor javaEditor) {
+//
+//		}
+
+		String qualifiedName = MiscUtils.getQualifiedName(iTextEditor);
 		SpringBeanDefinition sbd = MiscUtils.createSpringBeanDefinition(sel.getText(), qualifiedName);
 
 		MiscUtils.copyStringToClipBoard(activeShell, sbd.toSpringXMl());

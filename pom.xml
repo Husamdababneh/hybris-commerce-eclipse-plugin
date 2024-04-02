@@ -18,7 +18,7 @@
 	</developers>
 
 	<properties>
-		<tycho-version>2.7.5</tycho-version>
+		<tycho-version>4.0.0</tycho-version>
 
 		<!-- PROJECT SETTINGS -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,7 +35,7 @@
 	</properties>
 
 	<prerequisites>
-		<maven>3.0</maven>
+		<maven>3.9</maven>
 	</prerequisites>
 
 	<scm>

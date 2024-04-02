@@ -84,10 +84,14 @@
       
       <handler commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinition" 
             class="com.hybris.yps.hyeclipse.handlers.CreateSpringBeanDefinitionHandler">
+            
+      </handler>
+      <handler commandId="com.hybris.yps.hyeclipse.CopySpringResource" 
+            class="com.hybris.yps.hyeclipse.handlers.CopySpringResource">
+      </handler>
 <!--         <enabledWhen>-->
          
 <!--         </enabledWhen>-->
-      </handler>
 
       <handler commandId="com.hybris.yps.hyeclipse.CreateSpringBeanDefinitionWizard" 
             class="com.hybris.yps.hyeclipse.handlers.CreateSpringBeanDefinitionWizardHandler">
